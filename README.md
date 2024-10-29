@@ -2,6 +2,24 @@
 
 > for support share subscription
 
+## test command
+
+* pub  topic message
+
+```code
+ mqttx pub -h 'localhost' -p 1883   --topic demo -s --stdin --multiline
+```
+
+* sub
+
+```code
+mqttx sub -h 'localhost' -p 1883 --topic 'demo/demo'
+
+share topic
+
+mqttx sub -h 'localhost' -p 2883 --topic '$share/app/demo'
+```
+
 ## some links
 
 [zenoh-mqtt](https://github.com/eclipse-zenoh/zenoh-plugin-mqtt)
