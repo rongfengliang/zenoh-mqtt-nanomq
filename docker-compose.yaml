@@ -1,0 +1,16 @@
+services:
+  zenoh-mqtt:
+     image: eclipse/zenoh-bridge-mqtt:latest
+     command: -c /config.json5
+     volumes:
+       - ./config.json5:/config.json5
+     ports:
+      - 1883:1883
+  mqtt:
+     image: emqx/nanomq:latest
+     volumes:
+       - ./nanomq.conf:/etc/nanomq.conf
+     ports:
+       - "2883:1883"
+       - "8083:8083"
+       - "8883:8883"
