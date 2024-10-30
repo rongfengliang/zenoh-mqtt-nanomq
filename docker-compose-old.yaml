@@ -1,28 +1,14 @@
 services:
-  zenoh-mqtt-r1:
+  zenoh-mqtt:
      image: eclipse/zenoh-bridge-mqtt:latest
      command: -c /config.json5
      volumes:
-       - ./config-r1.json5:/config.json5
+       - ./config.json5:/config.json5
      networks:
       app_net:
-        ipv4_address: 172.16.238.11
+        ipv4_address: 172.16.238.13
      ports:
       - 1883:1883
-      - 7447:7447
-      - 7447:7447/udp
-  zenoh-mqtt-r2:
-     image: eclipse/zenoh-bridge-mqtt:latest
-     command: -c /config.json5
-     volumes:
-       - ./config-r2.json5:/config.json5
-     networks:
-      app_net:
-        ipv4_address: 172.16.238.12
-     ports:
-      - 1884:1883
-      - 7448:7447
-      - 7448:7447/udp
   mqtt:
      image: emqx/nanomq:latest
      volumes:
@@ -41,4 +27,3 @@ networks:
       driver: default
       config:
       - subnet: 172.16.238.0/24
-  

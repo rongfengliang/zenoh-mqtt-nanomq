@@ -1,0 +1,6 @@
+{
+  mode: "router",
+  connect: {
+    endpoints: ["tcp/172.16.238.11:7447","tcp/123.56.215.10:7447"]
+  }
+}
