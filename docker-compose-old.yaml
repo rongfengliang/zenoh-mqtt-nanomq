@@ -4,26 +4,15 @@ services:
      command: -c /config.json5
      volumes:
        - ./config.json5:/config.json5
-     networks:
-      app_net:
-        ipv4_address: 172.16.238.13
      ports:
       - 1883:1883
+      - 7447:7447
+      - 7447:7447/udp
   mqtt:
      image: emqx/nanomq:latest
      volumes:
        - ./nanomq.conf:/etc/nanomq.conf
-     networks:
-      app_net:
-        ipv4_address: 172.16.238.13
      ports:
        - "2883:1883"
        - "8083:8083"
        - "8883:8883"
-networks:
-  app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.16.238.0/24

@@ -1,6 +1,44 @@
 {
-  mode: "router",
-  connect: {
-    endpoints: ["tcp/172.16.238.12:7447","tcp/123.56.215.10:7447"]
+  "id":"1000",
+  "mode": "router",
+  "connect": {
+    "endpoints": ["tcp/172.16.238.12:7447"]
+  },
+  "plugins": {
+    "mqtt": {
+      "port": 1883
+    },
+    // configuration of "storage-manager" plugin:
+    "storage_manager": {
+      "volumes": {
+        // configuration of a "fs" volume (the "zenoh_backend_fs" backend library will be loaded at startup)
+        "fs": {}
+      },
+      "storages": {
+        // configuration of a "demo" storage using the "fs" volume
+        "demo": {
+          // the key expression this storage will subscribes to
+          "key_expr": "demo/example/**",
+          // this prefix will be stripped from the received key when converting to file path
+          // this argument is optional.
+          "strip_prefix": "demo/example",
+          "volume": {
+            "id": "fs",
+            // the key/values will be stored as files within this directory (relative to ${ZENOH_BACKEND_FS_ROOT})
+            "dir": "example"
+          }
+        }
+      }
+    },
+    // Optionally, add the REST plugin
+    "rest": {
+      "http_port": 8000
+    }
+  },
+  "adminspace": {
+    "permissions": {
+      "read": true,
+      "write": true
+    }
   }
 }

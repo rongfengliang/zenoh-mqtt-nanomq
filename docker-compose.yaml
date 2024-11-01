@@ -1,9 +1,13 @@
 services:
   zenoh-mqtt-r1:
-     image: eclipse/zenoh-bridge-mqtt:latest
+     image: eclipse/zenoh:1.0.0
      command: -c /config.json5
+     environment:
+     - ZENOH_BACKEND_FS_ROOT=/opt/zenoh
      volumes:
-       - ./config-r1.json5:/config.json5
+      - ./zenoh:/root/.zenoh
+      - ./storage1:/opt/zenoh
+      - ./config-r1.json5:/config.json5
      networks:
       app_net:
         ipv4_address: 172.16.238.11
@@ -11,11 +15,16 @@ services:
       - 1883:1883
       - 7447:7447
       - 7447:7447/udp
+      - 8000:8000
   zenoh-mqtt-r2:
-     image: eclipse/zenoh-bridge-mqtt:latest
+     image: eclipse/zenoh:1.0.0
      command: -c /config.json5
+     environment:
+     - ZENOH_BACKEND_FS_ROOT=/opt/zenoh
      volumes:
-       - ./config-r2.json5:/config.json5
+      - ./zenoh:/root/.zenoh
+      - ./storage2:/opt/zenoh
+      - ./config-r2.json5:/config.json5
      networks:
       app_net:
         ipv4_address: 172.16.238.12
@@ -23,6 +32,7 @@ services:
       - 1884:1883
       - 7448:7447
       - 7448:7447/udp
+      - 8001:8000
   mqtt:
      image: emqx/nanomq:latest
      volumes:
