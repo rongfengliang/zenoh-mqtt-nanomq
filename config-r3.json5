@@ -1,8 +1,8 @@
 {
-  "id":"1000",
+  "id":"1002",
   "mode": "router",
   "connect": {
-    "endpoints": ["tcp/172.16.238.12:7447"]
+    "endpoints": ["tcp/172.16.238.11:7447"]
   },
   "plugins": {
     "mqtt": {
@@ -32,15 +32,15 @@
             "dir": "example"
           },
           "replication": {
-            // This field was named publication_interval.
-            "interval": 10,
-            // This field was named delta.
-            "sub_intervals": 5,
-            "propagation_delay": 250,
-            // These fields did not exist before.
-            "hot": 6,
-            "warm": 30
-         }
+                // This field was named publication_interval.
+                "interval": 10,
+                // This field was named delta.
+                "sub_intervals": 5,
+                "propagation_delay": 250,
+                // These fields did not exist before.
+                "hot": 6,
+                "warm": 30
+        }
         },
         "s3_test": {
           // the key expression this storage will subscribes to
@@ -51,7 +51,7 @@
           "volume": {
             "id": "s3",
             // the key/values will be stored as files within this directory (relative to ${ZENOH_BACKEND_FS_ROOT})
-            "bucket": "zenoh-bucket",
+            "bucket": "zenoh-bucket-2",
             "reuse_bucket": true,
             "private": {
               // Credentials for interacting with the S3 bucket

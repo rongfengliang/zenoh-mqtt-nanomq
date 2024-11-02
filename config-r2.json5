@@ -12,7 +12,11 @@
     "storage_manager": {
       "volumes": {
         // configuration of a "fs" volume (the "zenoh_backend_fs" backend library will be loaded at startup)
-        "fs": {}
+        "fs": {},
+        "s3": {
+          "region": "eu-west-1",
+          "url": "http://172.16.238.10:9000"
+        }
       },
       "storages": {
         // configuration of a "demo" storage using the "fs" volume
@@ -26,6 +30,34 @@
             "id": "fs",
             // the key/values will be stored as files within this directory (relative to ${ZENOH_BACKEND_FS_ROOT})
             "dir": "example"
+          },
+          "replication": {
+            // This field was named publication_interval.
+            "interval": 10,
+            // This field was named delta.
+            "sub_intervals": 5,
+            "propagation_delay": 250,
+            // These fields did not exist before.
+            "hot": 6,
+            "warm": 30
+        }
+        },
+        "s3_test": {
+          // the key expression this storage will subscribes to
+          "key_expr": "demo/example/**",
+          // this prefix will be stripped from the received key when converting to file path
+          // this argument is optional.
+          // "strip_prefix": "demo/example",
+          "volume": {
+            "id": "s3",
+            // the key/values will be stored as files within this directory (relative to ${ZENOH_BACKEND_FS_ROOT})
+            "bucket": "zenoh-bucket-2",
+            "reuse_bucket": true,
+            "private": {
+              // Credentials for interacting with the S3 bucket
+              "access_key": "minio",
+              "secret_key": "minio123"
+            }
           }
         }
       }
